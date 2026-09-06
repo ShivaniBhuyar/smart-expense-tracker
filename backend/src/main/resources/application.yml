@@ -1,0 +1,59 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api/v1
+
+spring:
+  application:
+    name: smart-expense-tracker
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${DB_URL:jdbc:mysql://localhost:3307/smart_expense_tracker_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:root}
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
+      idle-timeout: 300000
+      connection-timeout: 20000
+      max-lifetime: 1800000
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: ${HIBERNATE_DDL_AUTO:update}
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        use_sql_comments: true
+    open-in-view: false
+
+# Custom Application Properties (JWT & Security)
+app:
+  jwt:
+    # 256-bit HMAC secret key encoded in Hex/Base64
+    secret: ${JWT_SECRET:404E635266556A586E3272357538782F413F4428472B4B6250655368566D5971}
+    # Token validity duration: 24 hours (in milliseconds)
+    expiration-ms: ${JWT_EXPIRATION_MS:86400000}
+    # Refresh token validity duration: 7 days (in milliseconds)
+    refresh-token:
+      expiration-ms: ${JWT_REFRESH_EXPIRATION_MS:604800000}
+
+# SpringDoc OpenAPI / Swagger UI Configuration
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: alpha
+    tagsSorter: alpha
+
+# Logging Configuration
+logging:
+  level:
+    root: INFO
+    com.expensetracker: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
