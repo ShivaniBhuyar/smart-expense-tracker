@@ -34,7 +34,7 @@ spring:
 app:
   jwt:
     # 256-bit HMAC secret key encoded in Hex/Base64
-    secret: ${JWT_SECRET:replace_this_with_a_secure_256_bit_secret_key_in_production}
+    secret: ${JWT_SECRET:404E635266556A586E3272357538782F413F4428472B4B6250655368566D5971}
     # Token validity duration: 24 hours (in milliseconds)
     expiration-ms: ${JWT_EXPIRATION_MS:86400000}
     # Refresh token validity duration: 7 days (in milliseconds)
